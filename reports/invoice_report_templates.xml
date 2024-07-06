@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="customer_number_label">
+        <span>Customer Number:</span>
+    </template>
+
+    <template id="report_invoice_document_inherit_customer_number" inherit_id="account.report_invoice_document">
+        <xpath expr="//div[@name='address_not_same_as_shipping']//address" position="after">
+            <t t-if="o.partner_id.customer_number or (o.partner_id.parent_id and o.partner_id.parent_id.customer_number)">
+                <div class="mt-2">
+                    <strong t-call="customer_number.customer_number_label"/>
+                    <t t-if="o.partner_id.customer_number">
+                        <span t-field="o.partner_id.customer_number"/>
+                    </t>
+                    <t t-elif="o.partner_id.parent_id and o.partner_id.parent_id.customer_number">
+                        <span t-field="o.partner_id.parent_id.customer_number"/>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@name='address_same_as_shipping']//address" position="after">
+            <t t-if="o.partner_id.customer_number or (o.partner_id.parent_id and o.partner_id.parent_id.customer_number)">
+                <div class="mt-2">
+                    <strong t-call="customer_number.customer_number_label"/>
+                    <t t-if="o.partner_id.customer_number">
+                        <span t-field="o.partner_id.customer_number"/>
+                    </t>
+                    <t t-elif="o.partner_id.parent_id and o.partner_id.parent_id.customer_number">
+                        <span t-field="o.partner_id.parent_id.customer_number"/>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+        <xpath expr="//div[@name='no_shipping']//address" position="after">
+            <t t-if="o.partner_id.customer_number or (o.partner_id.parent_id and o.partner_id.parent_id.customer_number)">
+                <div class="mt-2">
+                    <strong t-call="customer_number.customer_number_label"/>
+                    <t t-if="o.partner_id.customer_number">
+                        <span t-field="o.partner_id.customer_number"/>
+                    </t>
+                    <t t-elif="o.partner_id.parent_id and o.partner_id.parent_id.customer_number">
+                        <span t-field="o.partner_id.parent_id.customer_number"/>
+                    </t>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>
