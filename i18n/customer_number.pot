@@ -18,12 +18,12 @@ msgstr ""
 #. module: customer_number
 #: model_terms:ir.ui.view,arch_db:customer_number.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Starting Customer Number</span>"
-msgstr "<span class=\"o_form_label\">Startande kundnummer</span>"
+msgstr ""
 
 #. module: customer_number
 #: model_terms:ir.ui.view,arch_db:customer_number.customer_number_label
 msgid "<span>Customer Number:</span>"
-msgstr "<span>Kundnummer:</span>"
+msgstr ""
 
 #. module: customer_number
 #. odoo-python
@@ -35,8 +35,6 @@ msgid ""
 "A unique identifier for this customer. This number will appear on invoices "
 "and is automatically generated for new customers."
 msgstr ""
-"En unik identifierare för den här kunden. Detta nummer visas på fakturor "
-"och genereras automatiskt för nya kunder."
 
 #. module: customer_number
 #: model_terms:ir.ui.view,arch_db:customer_number.view_update_customer_numbers_form
@@ -66,7 +64,7 @@ msgstr ""
 #. module: customer_number
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__create_date
 msgid "Created on"
-msgstr "n"
+msgstr ""
 
 #. module: customer_number
 #. odoo-python
