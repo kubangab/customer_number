@@ -44,5 +44,27 @@ msgstr ""
 #. module: customer_number
 #: model:ir.model.fields,help:customer_number.field_res_partner__customer_number
 #: model:ir.model.fields,help:customer_number.field_res_users__customer_number
-msgid "A unique identifier for this customer. This number will appear on invoices and must be unique across all customers."
+msgid "A unique identifier for this customer. This number will appear on invoices and is automatically generated for new customers."
+msgstr ""
+
+#. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_res_config_settings__customer_number_digits
+#: model:ir.model.fields,field_description:customer_number.field_res_company__customer_number_digits
+msgid "Customer Number Digits"
+msgstr ""
+
+#. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_res_config_settings__customer_number_start
+#: model:ir.model.fields,field_description:customer_number.field_res_company__customer_number_start
+msgid "Starting Customer Number"
+msgstr ""
+
+#. module: customer_number
+#: model_terms:ir.ui.view,arch_db:customer_number.res_config_settings_view_form
+msgid "Set the number of digits for customer numbers"
+msgstr ""
+
+#. module: customer_number
+#: model_terms:ir.ui.view,arch_db:customer_number.res_config_settings_view_form
+msgid "Set the starting number for customer numbers"
 msgstr ""
