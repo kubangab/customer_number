@@ -8,7 +8,7 @@
             <xpath expr="//field[@name='vat']" position="after">
                 <label for="customer_number" attrs="{'invisible': [('is_company', '=', False)]}"/>
                 <div attrs="{'invisible': [('is_company', '=', False)]}" class="o_row">
-                    <field name="customer_number" readonly="0" widget="char" options="{'size': 10}"/>
+                    <field name="customer_number" readonly="1" widget="char" options="{'size': 10}"/>
                     <button name="%(customer_number.action_manage_customer_number)d" 
                             string="Set number" 
                             type="action"
