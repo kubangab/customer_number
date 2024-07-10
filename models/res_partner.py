@@ -15,7 +15,7 @@ class ResPartner(models.Model):
         ('customer_number_unique', 'unique(customer_number)', _('The customer number must be unique!'))
     ]
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         if vals.get('is_company', False) and not vals.get('customer_number'):
             vals['customer_number'] = self._get_next_customer_number()
