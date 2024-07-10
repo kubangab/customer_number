@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_manage_customer_number_form" model="ir.ui.view">
+        <field name="name">manage.customer.number.form</field>
+        <field name="model">manage.customer.number</field>
+        <field name="arch" type="xml">
+            <form string="Manage Customer Number">
+                <group>
+                    <field name="partner_id" invisible="1"/>
+                    <field name="current_number"/>
+                    <field name="action"/>
+                    <field name="new_number" attrs="{'invisible': [('action', '!=', 'manual')], 'required': [('action', '=', 'manual')]}"/>
+                </group>
+                <footer>
+                    <button name="apply_action" string="Apply" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_manage_customer_number" model="ir.actions.act_window">
+        <field name="name">Manage Customer Number</field>
+        <field name="res_model">manage.customer.number</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

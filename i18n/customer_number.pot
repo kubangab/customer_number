@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* customer_number
+#       * customer_number
 #
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 
-#. module: customer_number
+. module: customer_number
 #: model_terms:ir.ui.view,arch_db:customer_number.res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Starting Customer Number</span>"
 msgstr ""
@@ -28,6 +28,7 @@ msgstr ""
 #. module: customer_number
 #. odoo-python
 #: code:addons/customer_number/models/res_partner.py:0
+#: model:ir.model.fields,help:customer_number.field_manage_customer_number__current_number
 #: model:ir.model.fields,help:customer_number.field_res_partner__customer_number
 #: model:ir.model.fields,help:customer_number.field_res_users__customer_number
 #, python-format
@@ -37,6 +38,17 @@ msgid ""
 msgstr ""
 
 #. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__action
+msgid "Action"
+msgstr ""
+
+#. module: customer_number
+#: model_terms:ir.ui.view,arch_db:customer_number.view_manage_customer_number_form
+msgid "Apply"
+msgstr ""
+
+#. module: customer_number
+#: model_terms:ir.ui.view,arch_db:customer_number.view_manage_customer_number_form
 #: model_terms:ir.ui.view,arch_db:customer_number.view_update_customer_numbers_form
 msgid "Cancel"
 msgstr ""
@@ -57,13 +69,20 @@ msgid "Contact"
 msgstr ""
 
 #. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__create_uid
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__create_date
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__current_number
+msgid "Current Number"
 msgstr ""
 
 #. module: customer_number
@@ -88,28 +107,69 @@ msgid "Customer Number Manager"
 msgstr ""
 
 #. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__display_name
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: customer_number
+#. odoo-python
+#: code:addons/customer_number/wizards/manage_customer_number.py:0
+#: model:ir.model.fields.selection,name:customer_number.selection__manage_customer_number__action__manual
+#, python-format
+msgid "Enter Manually"
+msgstr ""
+
+#. module: customer_number
+#. odoo-python
+#: code:addons/customer_number/wizards/manage_customer_number.py:0
+#: model:ir.model.fields.selection,name:customer_number.selection__manage_customer_number__action__generate
+#, python-format
+msgid "Generate New"
+msgstr ""
+
+#. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__id
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__id
 msgid "ID"
 msgstr ""
 
 #. module: customer_number
+#. odoo-python
+#: code:addons/customer_number/wizards/manage_customer_number.py:0
+#: model:ir.model.fields.selection,name:customer_number.selection__manage_customer_number__action__keep
+#, python-format
+msgid "Keep Current"
+msgstr ""
+
+#. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number____last_update
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__write_uid
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__write_date
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__write_date
 msgid "Last Updated on"
+msgstr ""
+
+#. module: customer_number
+#: model:ir.actions.act_window,name:customer_number.action_manage_customer_number
+#: model:ir.model,name:customer_number.model_manage_customer_number
+#: model_terms:ir.ui.view,arch_db:customer_number.view_manage_customer_number_form
+msgid "Manage Customer Number"
+msgstr ""
+
+#. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__new_number
+msgid "New Number"
 msgstr ""
 
 #. module: customer_number
@@ -118,8 +178,18 @@ msgid "Number of digits"
 msgstr ""
 
 #. module: customer_number
+#: model:ir.model.fields,field_description:customer_number.field_manage_customer_number__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: customer_number
 #: model:ir.model.fields,field_description:customer_number.field_update_customer_numbers__partner_count
 msgid "Partners to Update"
+msgstr ""
+
+#. module: customer_number
+#: model_terms:ir.ui.view,arch_db:customer_number.view_partner_form_inherit_customer_number
+msgid "Set number"
 msgstr ""
 
 #. module: customer_number
