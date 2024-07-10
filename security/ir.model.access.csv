@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_manage_customer_number,access.manage.customer.number,model_manage_customer_number,customer_number.group_customer_number_manager,1,1,1,1
+access_update_customer_numbers,access.update.customer.numbers,model_update_customer_numbers,customer_number.group_customer_number_manager,1,1,1,1
