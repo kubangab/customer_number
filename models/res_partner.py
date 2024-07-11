@@ -41,7 +41,6 @@ class ResPartner(models.Model):
         
         _logger.info(f"Generating next customer number. Digits: {digits}, Start: {start}, Padding: {padding}")
         
-        # Find the highest existing customer number
         highest_partner = self.search([('customer_number', '!=', False)], order='customer_number desc', limit=1)
         if highest_partner:
             try:
@@ -68,7 +67,7 @@ class ResPartner(models.Model):
             if partner.is_company and not partner.customer_number:
                 partner.customer_number = self._get_next_customer_number()
                 _logger.info(f"Generated customer number for existing partner: {partner.customer_number}")
-
+                
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):
         args = args or []
