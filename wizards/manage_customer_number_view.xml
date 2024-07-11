@@ -24,5 +24,6 @@
         <field name="res_model">manage.customer.number</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
+        <field name="groups_id" eval="[(4, ref('customer_number.group_customer_number_manager'))]"/>
     </record>
 </odoo>

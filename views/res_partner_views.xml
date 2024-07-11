@@ -8,13 +8,21 @@
             <xpath expr="//field[@name='vat']" position="after">
                 <label for="customer_number" attrs="{'invisible': [('is_company', '=', False)]}"/>
                 <div attrs="{'invisible': [('is_company', '=', False)]}" class="o_row">
-                    <field name="customer_number" readonly="1" widget="char" options="{'size': 10}"/>
+                    <field name="customer_number" readonly="1" widget="char" options="{'size': 12}"/>
                     <button name="%(customer_number.action_manage_customer_number)d" 
-                            string="Set number" 
+                            string="Set Number" 
                             type="action"
                             class="oe_inline oe_edit_only"
                             context="{'default_partner_id': active_id}"
-                            groups="customer_number.group_customer_number_manager"/>
+                            groups="customer_number.group_customer_number_manager"
+                            title="Manage Customer Number"
+                            attrs="{'invisible': [('id', '=', False)]}"/>
+                    <button name="action_generate_customer_number" 
+                            string="Generate" 
+                            type="object"
+                            class="oe_inline oe_edit_only"
+                            groups="customer_number.group_customer_number_manager"
+                            attrs="{'invisible': ['|', ('id', '=', False), ('customer_number', '!=', False)]}"/>
                 </div>
             </xpath>
         </field>

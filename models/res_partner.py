@@ -1,56 +1,73 @@
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
-
+    
     customer_number = fields.Char(
         string=_('Customer Number'),
         copy=False,
-        readonly=True,
-        help=_("A unique identifier for this customer. This number will appear on invoices and is automatically generated for new customers.")
+        readonly=False,
+        help=_("A unique identifier for this customer. This number will appear on invoices if set.")
     )
-
+    
     _sql_constraints = [
-        ('customer_number_unique', 'unique(customer_number)', _('The customer number must be unique!'))
+        ('customer_number_company_uniq', 'UNIQUE(customer_number, company_id)',
+         _('The customer number must be unique per company!'))
     ]
-
+    
     @api.model_create_multi
-    def create(self, vals):
-        if vals.get('is_company', False) and not vals.get('customer_number'):
-            vals['customer_number'] = self._get_next_customer_number()
-        return super(ResPartner, self).create(vals)
-
+    def create(self, vals_list):
+        for vals in vals_list:
+            _logger.info(f"Creating partner with vals: {vals}")
+            if vals.get('is_company'):
+                _logger.info("Partner is a company")
+                if not vals.get('customer_number'):
+                    _logger.info("No customer number provided")
+                    generation_mode = self.env['ir.config_parameter'].sudo().get_param('customer_number.generation', 'manual')
+                    _logger.info(f"Generation mode: {generation_mode}")
+                    if generation_mode == 'auto':
+                        vals['customer_number'] = self._get_next_customer_number()
+                        _logger.info(f"Generated customer number: {vals['customer_number']}")
+        return super(ResPartner, self).create(vals_list)
+    
     @api.model
     def _get_next_customer_number(self):
-        company = self.env.company
-        digits = company.customer_number_digits
-        start = company.customer_number_start
-        padding = company.customer_number_padding
-
-        last_customer = self.search([('customer_number', '!=', False)], order='customer_number desc', limit=1)
-        if last_customer:
+        digits = int(self.env['ir.config_parameter'].sudo().get_param('customer_number.digits', '5'))
+        start = int(self.env['ir.config_parameter'].sudo().get_param('customer_number.start', '1000'))
+        padding = self.env['ir.config_parameter'].sudo().get_param('customer_number.padding', 'True').lower() == 'true'
+        
+        _logger.info(f"Generating next customer number. Digits: {digits}, Start: {start}, Padding: {padding}")
+        
+        # Find the highest existing customer number
+        highest_partner = self.search([('customer_number', '!=', False)], order='customer_number desc', limit=1)
+        if highest_partner:
             try:
-                last_number = int(last_customer.customer_number)
-                next_number = max(last_number + 1, start)
+                highest_number = int(highest_partner.customer_number)
+                next_number = max(highest_number + 1, start)
             except ValueError:
+                _logger.warning(f"Could not convert customer number '{highest_partner.customer_number}' to integer. Using start number.")
                 next_number = start
         else:
             next_number = start
-
+            
+        _logger.info(f"Next number before padding: {next_number}")
+        
         if padding:
-            return str(next_number).zfill(digits)
+            result = str(next_number).zfill(digits)
         else:
-            return str(next_number)
-
-    @api.constrains('customer_number', 'is_company')
-    def _check_customer_number(self):
+            result = str(next_number)
+            
+        _logger.info(f"Generated customer number: {result}")
+        return result
+    
+    def action_generate_customer_number(self):
         for partner in self:
             if partner.is_company and not partner.customer_number:
                 partner.customer_number = self._get_next_customer_number()
-            if partner.customer_number:
-                if self.search_count([('customer_number', '=', partner.customer_number), ('id', '!=', partner.id)]) > 0:
-                    raise ValidationError(_('The customer number must be unique!'))
+                _logger.info(f"Generated customer number for existing partner: {partner.customer_number}")
 
     @api.model
     def name_search(self, name='', args=None, operator='ilike', limit=100):

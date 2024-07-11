@@ -18,6 +18,7 @@
         'reports/invoice_report_templates.xml',
 	'wizards/update_customer_numbers_view.xml',
     ],
+    'test': ['tests/test_customer_number.py'],
     'installable': True,
     'auto_install': False,
     'license': 'LGPL-3',
