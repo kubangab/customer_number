@@ -1,4 +1,4 @@
-from odoo import models, fields, api, tools, _
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 import logging
 
@@ -19,6 +19,14 @@ class ResPartner(models.Model):
          'The customer number must be unique per company!')
     ]
     
+    def init(self):
+        # Create a lock table if it doesn't exist
+        self.env.cr.execute("""
+            CREATE TABLE IF NOT EXISTS customer_number_lock (
+                id serial PRIMARY KEY
+            )
+        """)
+
     @api.constrains('customer_number', 'company_id')
     def _check_unique_customer_number(self):
         for partner in self:
@@ -54,15 +62,19 @@ class ResPartner(models.Model):
             
         _logger.info(f"Generating next customer number. Digits: {digits}, Start: {start}, Padding: {padding}")
 
-        with tools.mutex('customer_number_generation'):    
-            self.env.cr.execute("""
-                SELECT MAX(CAST(customer_number AS INTEGER))
-                FROM res_partner
-                WHERE customer_number ~ '^[0-9]+$'
-            """)
-            max_number = self.env.cr.fetchone()[0] or start - 1
-            next_number = max(max_number + 1, start)
-            
+        self.env.cr.execute("""
+            SELECT MAX(CAST(customer_number AS INTEGER))
+            FROM res_partner
+            WHERE customer_number ~ '^[0-9]+$'
+        """)
+        max_number = self.env.cr.fetchone()[0]
+
+        # Use the start value if no customer numbers exist, otherwise continue from max_number
+        if max_number is None:
+            next_number = start
+        else:
+            next_number = max_number + 1
+
         _logger.info(f"Next number before padding: {next_number}")
             
         if padding:
