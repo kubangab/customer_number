@@ -1,6 +1,6 @@
 {
     'name': 'Customer Number',
-    'version': '17.0.1.0.2',
+    'version': '17.0.1.0.3',
     'category': 'Sales',
     'summary': 'Add Customer Number field to partners',
     'description': """
