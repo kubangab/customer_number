@@ -1,6 +1,6 @@
 {
     'name': 'Customer Number',
-    'version': '16.0.3.0.1',
+    'version': '16.0.3.0.2',
     'category': 'Sales',
     'summary': 'Add Customer Number field to partners',
     'description': """
@@ -19,7 +19,6 @@
 	'wizards/update_customer_numbers_view.xml',
     ],
     'images': ['static/description/icon.png'],
-    'test': ['tests/test_customer_number.py'],
     'installable': True,
     'auto_install': False,
     'license': 'LGPL-3',
