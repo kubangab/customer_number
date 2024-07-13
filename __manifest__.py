@@ -19,7 +19,6 @@
 	'wizards/update_customer_numbers_view.xml',
     ],
     'images': ['static/description/icon.png'],
-    'test': ['tests/test_customer_number.py'],
     'installable': True,
     'auto_install': False,
     'license': 'LGPL-3',
