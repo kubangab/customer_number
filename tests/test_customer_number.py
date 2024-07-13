@@ -22,7 +22,6 @@ class TestCustomerNumber(TransactionCase):
         self.assertTrue(partner.customer_number, "Customer number should be automatically generated")
         self.assertEqual(partner.customer_number, '01000', "First customer number should be 01000")
 
-    ''''
     def test_02_create_multiple_company_partners(self):
         partners = self.Partner.create([
             {'name': 'Company 1', 'is_company': True},
@@ -32,7 +31,6 @@ class TestCustomerNumber(TransactionCase):
         self.assertEqual(partners[0].customer_number, '01000')
         self.assertEqual(partners[1].customer_number, '01001')
         self.assertEqual(partners[2].customer_number, '01002')
-    ''''
 
     def test_03_create_individual_partner(self):
         partner = self.Partner.create({
