@@ -1,4 +1,5 @@
-from odoo import models, fields, api, exceptions, _
+from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -7,15 +8,15 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
     
     customer_number = fields.Char(
-        string=_('Customer Number'),
+        string='Customer Number',
         copy=False,
         readonly=True,
-        help=_("A unique identifier for this customer. This number will appear on invoices if set.")
+        help="A unique identifier for this customer. This number will appear on invoices if set."
     )
     
     _sql_constraints = [
         ('customer_number_company_uniq', 'UNIQUE(customer_number, company_id)',
-         _('The customer number must be unique per company!'))
+         'The customer number must be unique per company!')
     ]
     
     @api.constrains('customer_number', 'company_id')
@@ -28,7 +29,7 @@ class ResPartner(models.Model):
                     ('id', '!=', partner.id)
                 ]
                 if self.search_count(domain) > 0:
-                    raise exceptions.ValidationError(_('The customer number must be unique per company!'))
+                    raise ValidationError(_('The customer number must be unique per company!'))
                         
     @api.model_create_multi
     def create(self, vals_list):
@@ -43,7 +44,7 @@ class ResPartner(models.Model):
                     if generation_mode == 'auto':
                         vals['customer_number'] = self._get_next_customer_number()
                         _logger.info(f"Generated customer number: {vals['customer_number']}")
-        return super(ResPartner, self).create(vals_list)
+        return super().create(vals_list)
     
     @api.model
     def _get_next_customer_number(self):
@@ -78,11 +79,11 @@ class ResPartner(models.Model):
                 _logger.info(f"Generated customer number for existing partner: {partner.customer_number}")
                 
     @api.model
-    def name_search(self, name='', args=None, operator='ilike', limit=100):
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
         args = args or []
         if name:
             args = ['|', ('customer_number', operator, name)] + args
-        return super(ResPartner, self).name_search(name=name, args=args, operator=operator, limit=limit)
+        return self._search(args, limit=limit, access_rights_uid=name_get_uid)
 
     @api.model
     def _update_existing_customer_numbers(self):

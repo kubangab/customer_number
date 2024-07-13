@@ -9,7 +9,7 @@
                     <field name="partner_id" invisible="1"/>
                     <field name="current_number"/>
                     <field name="action"/>
-                    <field name="new_number" attrs="{'invisible': [('action', '!=', 'manual')], 'required': [('action', '=', 'manual')]}"/>
+                    <field name="new_number" invisible="action != 'manual'" required="action == 'manual'"/>
                 </group>
                 <footer>
                     <button name="apply_action" string="Apply" type="object" class="btn-primary"/>
@@ -24,6 +24,5 @@
         <field name="res_model">manage.customer.number</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
-        <field name="groups_id" eval="[(4, ref('customer_number.group_customer_number_manager'))]"/>
     </record>
 </odoo>

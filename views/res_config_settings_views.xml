@@ -9,31 +9,17 @@
                 <h2>Customer Number</h2>
                 <div class="row mt16 o_settings_container" id="customer_number_setting">
                     <div class="col-12 col-lg-6 o_setting_box">
-                        <div class="o_setting_left_pane"/>
-                        <div class="o_setting_right_pane">
-                            <span class="o_form_label">Customer Number Generation</span>
-                            <div class="text-muted">
-                                Choose how customer numbers are generated
-                            </div>
-                            <div class="content-group">
-                                <div class="mt16">
-                                    <field name="customer_number_generation" widget="radio"/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
                             <field name="customer_number_padding"/>
                         </div>
                         <div class="o_setting_right_pane">
                             <label for="customer_number_padding"/>
-                            <div class="text-muted mb-2">
+                            <div class="text-muted">
                                 Use leading zeros for customer numbers
                             </div>
-                            <div class="content-group" attrs="{'invisible': [('customer_number_padding', '=', False)]}">
-                                <div class="row mt16">
-                                    <label for="customer_number_digits" class="col-lg-3 o_light_label"/>
+                            <div class="content-group" invisible="not customer_number_padding">
+                                <div class="mt16">
+                                    <label for="customer_number_digits" class="o_light_label"/>
                                     <field name="customer_number_digits"/>
                                 </div>
                             </div>
@@ -42,15 +28,20 @@
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane"/>
                         <div class="o_setting_right_pane">
-                            <span class="o_form_label">Starting Customer Number</span>
-                            <div class="text-muted mb-2">
-                                Set the starting number for customer numbers
+                            <label for="customer_number_generation"/>
+                            <field name="customer_number_generation" widget="radio"/>
+                            <div class="text-muted">
+                                Choose how customer numbers are generated
                             </div>
-                            <div class="content-group">
-                                <div class="row mt16">
-                                    <label for="customer_number_start" class="col-lg-3 o_light_label"/>
-                                    <field name="customer_number_start"/>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="customer_number_start"/>
+                            <field name="customer_number_start"/>
+                            <div class="text-muted">
+                                Starting number for customer numbers
                             </div>
                         </div>
                     </div>

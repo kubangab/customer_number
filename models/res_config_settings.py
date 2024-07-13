@@ -10,7 +10,6 @@ class ResConfigSettings(models.TransientModel):
         ('auto', 'Automatic'),
         ('manual', 'Manual with Button')
     ], string='Customer Number Generation', default='manual', config_parameter='customer_number.generation')
-
     customer_number_digits = fields.Integer(string='Customer Number Digits', default=5, config_parameter='customer_number.digits')
     customer_number_start = fields.Integer(string='Starting Customer Number', default=1000, config_parameter='customer_number.start')
     customer_number_padding = fields.Boolean(string='Use Leading Zeros', default=True, config_parameter='customer_number.padding')

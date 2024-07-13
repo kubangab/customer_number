@@ -6,28 +6,27 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='vat']" position="after">
-                <label for="customer_number" attrs="{'invisible': [('is_company', '=', False)]}"/>
-                <div attrs="{'invisible': [('is_company', '=', False)]}" class="o_row">
-                    <field name="customer_number" readonly="1" widget="char" options="{'size': 12}"/>
+                <label for="customer_number" invisible="not is_company"/>
+                <div invisible="not is_company" class="o_row">
+                    <field name="customer_number" readonly="1" class="oe_inline" options="{'size': 12}"/>
                     <button name="%(customer_number.action_manage_customer_number)d" 
                             string="Set Number" 
                             type="action"
                             class="oe_inline oe_edit_only"
-                            context="{'default_partner_id': active_id}"
+                            context="{'default_partner_id': id}"
                             groups="customer_number.group_customer_number_manager"
                             title="Manage Customer Number"
-                            attrs="{'invisible': [('id', '=', False)]}"/>
+                            invisible="not id"/>
                     <button name="action_generate_customer_number" 
                             string="Generate" 
                             type="object"
                             class="oe_inline oe_edit_only"
                             groups="customer_number.group_customer_number_manager"
-                            attrs="{'invisible': ['|', ('id', '=', False), ('customer_number', '!=', False)]}"/>
+                            invisible="not id or customer_number"/>
                 </div>
             </xpath>
         </field>
     </record>
-
     <record id="view_res_partner_filter_inherit_customer_number" model="ir.ui.view">
         <field name="name">res.partner.select.inherit.customer.number</field>
         <field name="model">res.partner</field>
