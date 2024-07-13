@@ -8,7 +8,7 @@
     """,
     'author': 'Lasse Larsson, Kubang AB',
     'website': 'https://www.kubang.eu',
-    'depends': ['base', 'account','sales','contacts'],
+    'depends': ['base', 'account','sale','contacts'],
     'data': [
         'security/customer_number_security.xml',
         'security/ir.model.access.csv',
