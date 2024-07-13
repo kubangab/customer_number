@@ -9,7 +9,7 @@ class ResPartner(models.Model):
     customer_number = fields.Char(
         string=_('Customer Number'),
         copy=False,
-        readonly=False,
+        readonly=True,
         help=_("A unique identifier for this customer. This number will appear on invoices if set.")
     )
     
