@@ -64,15 +64,19 @@ class ResPartner(models.Model):
         # Lock the table to ensure only one transaction can generate the next number at a time
         self.env.cr.execute("LOCK TABLE customer_number_lock IN ACCESS EXCLUSIVE MODE")
 
+        # Check for the maximum existing customer number
         self.env.cr.execute("""
             SELECT MAX(CAST(customer_number AS INTEGER))
             FROM res_partner
             WHERE customer_number ~ '^[0-9]+$'
         """)
-        max_number = self.env.cr.fetchone()[0] or start - 1
-        next_number = max(max_number + 1, start)
+        max_number = self.env.cr.fetchone()[0]
 
-        _logger.info(f"Next number before padding: {next_number}")
+        # Use the start value if no customer numbers exist, otherwise continue from max_number
+        if max_number is None:
+            next_number = start
+        else:
+            next_number = max_number + 1
 
         if padding:
             result = str(next_number).zfill(digits)
