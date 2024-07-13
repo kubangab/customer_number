@@ -1,4 +1,4 @@
-from odoo import models, fields, api, _
+from odoo import models, fields, api, tools, _
 from odoo.exceptions import ValidationError
 import logging
 
@@ -53,14 +53,15 @@ class ResPartner(models.Model):
         padding = self.env['ir.config_parameter'].sudo().get_param('customer_number.padding', 'True').lower() == 'true'
             
         _logger.info(f"Generating next customer number. Digits: {digits}, Start: {start}, Padding: {padding}")
-            
-        self.env.cr.execute("""
-            SELECT MAX(CAST(customer_number AS INTEGER))
-            FROM res_partner
-            WHERE customer_number ~ '^[0-9]+$'
-        """)
-        max_number = self.env.cr.fetchone()[0] or start - 1
-        next_number = max(max_number + 1, start)
+
+        with tools.mutex('customer_number_generation'):    
+            self.env.cr.execute("""
+                SELECT MAX(CAST(customer_number AS INTEGER))
+                FROM res_partner
+                WHERE customer_number ~ '^[0-9]+$'
+            """)
+            max_number = self.env.cr.fetchone()[0] or start - 1
+            next_number = max(max_number + 1, start)
             
         _logger.info(f"Next number before padding: {next_number}")
             
