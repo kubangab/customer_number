@@ -10,6 +10,7 @@ class TestCustomerNumber(TransactionCase):
 
         # Remove existing partners to ensure test isolation
         self.env.cr.execute("DELETE FROM res_partner WHERE is_company = TRUE")
+        self.env.cr.commit()
 
         # Set up configuration parameters
         self.env['ir.config_parameter'].sudo().set_param('customer_number.generation', 'auto')
