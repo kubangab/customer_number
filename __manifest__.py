@@ -1,6 +1,6 @@
 {
     'name': 'Customer Number',
-    'version': '16.0.3.0.2',
+    'version': '16.0.3.0.3',
     'category': 'Sales',
     'summary': 'Add Customer Number field to partners',
     'description': """
@@ -8,7 +8,7 @@
     """,
     'author': 'Lasse Larsson, Kubang AB',
     'website': 'https://www.kubang.eu',
-    'depends': ['base', 'account'],
+    'depends': ['base', 'account', 'sale', 'contacts'],
     'data': [
         'security/customer_number_security.xml',
         'security/ir.model.access.csv',
