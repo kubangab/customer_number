@@ -40,20 +40,16 @@ class ResPartner(models.Model):
                 if self.search_count(domain) > 0:
                     raise ValidationError(_('The customer number must be unique per company!'))
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            _logger.info(f"Creating partner with vals: {vals}")
             if vals.get('is_company'):
-                _logger.info("Partner is a company")
                 if not vals.get('customer_number'):
-                    _logger.info("No customer number provided")
                     generation_mode = self.env['ir.config_parameter'].sudo().get_param('customer_number.generation', 'manual')
-                    _logger.info(f"Generation mode: {generation_mode}")
                     if generation_mode == 'auto':
                         vals['customer_number'] = self._get_next_customer_number()
-                        _logger.info(f"Generated customer number: {vals['customer_number']}")
-        return super(ResPartner, self).create(vals_list)
+        partners = super(ResPartner, self).create(vals_list)
+        return partners
 
     @api.model
     def _get_next_customer_number(self):
