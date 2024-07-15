@@ -42,17 +42,13 @@ class ResPartner(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            _logger.info(f"Creating partner with vals: {vals}")
             if vals.get('is_company'):
-                _logger.info("Partner is a company")
                 if not vals.get('customer_number'):
-                    _logger.info("No customer number provided")
                     generation_mode = self.env['ir.config_parameter'].sudo().get_param('customer_number.generation', 'manual')
-                    _logger.info(f"Generation mode: {generation_mode}")
                     if generation_mode == 'auto':
                         vals['customer_number'] = self._get_next_customer_number()
-                        _logger.info(f"Generated customer number: {vals['customer_number']}")
-        return super().create(vals_list)
+        partners = super(ResPartner, self).create(vals_list)
+        return partners
     
     @api.model
     def _get_next_customer_number(self):
@@ -81,7 +77,7 @@ class ResPartner(models.Model):
             result = str(next_number).zfill(digits)
         else:
             result = str(next_number)
-            
+
         _logger.info(f"Generated customer number: {result}")
         return result
     
