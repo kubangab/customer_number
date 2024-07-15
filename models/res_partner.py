@@ -40,7 +40,7 @@ class ResPartner(models.Model):
                 if self.search_count(domain) > 0:
                     raise ValidationError(_('The customer number must be unique per company!'))
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals_list):
         for vals in vals_list:
             _logger.info(f"Creating partner with vals: {vals}")
