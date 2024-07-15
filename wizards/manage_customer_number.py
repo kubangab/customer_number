@@ -23,7 +23,16 @@ class ManageCustomerNumber(models.TransientModel):
     def apply_action(self):
         self.ensure_one()
         if self.action == 'manual' and self.new_number:
-            self.partner_id.customer_number = self.new_number
+            padded_number = self._pad_customer_number(self.new_number)
+            self.partner_id.customer_number = padded_number
         elif self.action == 'generate':
             self.partner_id.customer_number = self.env['res.partner']._get_next_customer_number()
         return {'type': 'ir.actions.act_window_close'}
+
+    def _pad_customer_number(self, number):
+        padding = self.env['ir.config_parameter'].sudo().get_param('customer_number.padding', 'True').lower() == 'true'
+        digits = int(self.env['ir.config_parameter'].sudo().get_param('customer_number.digits', '5'))
+
+        if padding:
+            return number.zfill(digits)
+        return number
